@@ -29,3 +29,8 @@ The payload should look like this:
 
 Use an HTTP GET with `http://localhost:8080/tokens/{YOUR_TOKEN}`, it should show you a message coming from the Infinispan server.
 
+# Run the demo on Openshift
+
+In order to run the demo on Openshift you can activate the profile ocp-ext executing the following command:
+`./mvnw package -Pocp-ext -Dquarkus.kubernetes.deploy=true`
+
