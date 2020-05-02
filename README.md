@@ -1,4 +1,4 @@
-# token-manager project
+# quarkus-infinispan-embedded-quickstart project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
