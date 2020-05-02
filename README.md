@@ -1,30 +1,31 @@
-# quarkus-infinispan-embedded-quickstart project
+# Quarkus demo: Infinispan Embedded
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This example showcases how to use Infinispan embedded with Quarkus. 
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+By default, a clustered version will be started. You can configure the cache mode in the application.properties.
 
-## Running the application in dev mode
+The default configuration uses the following values:
 
-You can run your application in dev mode that enables live coding using:
-```
-./mvnw quarkus:dev
-```
+* svc.cache.mode                              =DIST_ASYNC
+* svc.cache.entry.lifespan.hours              =16
 
-## Packaging and running the application
+# Run the demo on dev mode
 
-The application can be packaged using `./mvnw package`.
-It produces the `svc-1.0.0-SNAPSHOT-runner.jar` file in the `/target` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
+- Run `mvn clean package` and then `java -jar ./target/quarkus-infinispan-embedded-quickstart-1.0.0-SNAPSHOT-runner.jar`
+- In dev mode `mvn clean quarkus:dev`
 
-The application is now runnable using `java -jar target/svc-1.0.0-SNAPSHOT-runner.jar`.
+User an HTTP POST with the URL `http://localhost:8080/tokens` to create a new token.
+The payload should look like this:
 
-## Creating a native executable
+`{
+     "taxCode": "CBTPGA90B13B345H"
+ }`
+ 
+ The response will look like this:
+ `{
+      "token": "b18e9c18-93ba-48b9-a4cd-de39dec32e4b",
+      "uri": "/tokens/b18e9c18-93ba-48b9-a4cd-de39dec32e4b"
+  }`
 
-You can create a native executable using: `./mvnw package -Pnative`.
+Use an HTTP GET with `http://localhost:8080/tokens/{YOUR_TOKEN}`, it should show you a message coming from the Infinispan server.
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: `./mvnw package -Pnative -Dquarkus.native.container-build=true`.
-
-You can then execute your native executable with: `./target/svc-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image.
